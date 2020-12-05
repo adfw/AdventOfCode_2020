@@ -76,25 +76,19 @@ procedure Day4 is
 
             Ada.Integer_Text_IO.Get(Trim_Line, Value, Line_Pos);
 
-            if Value in Byr_Valid then
-               Result := True;
-            end if;
+            Result := Value in Byr_Valid;
 
          when Iyr => 
 
             Ada.Integer_Text_IO.Get(Trim_Line, Value, Line_Pos);
 
-            if Value in Iyr_Valid then
-               Result := True;
-            end if;
+            Result := Value in Iyr_Valid;
 
          when Eyr => 
 
             Ada.Integer_Text_IO.Get(Trim_Line, Value, Line_Pos);
 
-            if Value in Eyr_Valid then
-               Result := True;
-            end if;
+            Result := Value in Eyr_Valid;
 
          when Hgt =>
 
@@ -129,18 +123,14 @@ procedure Day4 is
 
             Eye_O.Get (Trim_Line, Eye, Line_Pos);
 
-            if Eye'Valid then
-               -- This is guarded by the exception anyway, but I might get rid of it.
-               Result := True;
-            end if;
+            -- This is guarded by the exception anyway, but I might get rid of it.
+            Result := Eye'Valid;
 
          when Pid => 
 
             Ada.Integer_Text_IO.Get(Trim_Line, Value, Line_Pos);
 
-            if Value in PID_Valid and then Line_Pos = 9 then
-               Result := True;
-            end if;
+            Result := Value in PID_Valid and then Line_Pos = 9;
 
          when Cid => 
 
@@ -166,9 +156,8 @@ begin
             while Col < Line'Length  loop
                Field_IO.Get(Line, Token, Line_Pos);
                Field_Present_P1 (Token) := True;
-               if Check_Value (Line, Token) then
-                  Field_Present_P2 (Token) := True;
-               end if;
+               Field_Present_P2 (Token) := Check_Value (Line, Token);
+
                Line_Pos := Ada.Strings.Fixed.Index(Line, " ", Line_Pos);
                Ada.Strings.Fixed.Delete (Line, 1, Line_Pos);
                Col := Col + Line_Pos;
